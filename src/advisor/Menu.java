@@ -11,22 +11,23 @@ public class Menu {
         Command command = Command.valueOf(commands[0].toUpperCase(Locale.ROOT));
 
         while (!command.equals(Command.EXIT)) {
-
+            Task task = new MenuTask();
             switch (command) {
                 case NEW:
-                    handleNewReleases();
+
+                    task.handleNewReleases();
                     break;
 
                 case FEATURED:
-                    handleFeatured();
+                    task.handleFeatured();
                     break;
 
                 case CATEGORIES:
-                    handleCategories();
+                    task.handleCategories();
                     break;
 
                 case PLAYLISTS:
-                    handlePlaylists(commands[1]);
+                    task.handlePlaylists(commands[1]);
                     break;
 
                 default:
@@ -38,38 +39,6 @@ public class Menu {
             command = Command.valueOf(commands[0].toUpperCase(Locale.ROOT));
         }
 
-    }
-
-    private static void handleNewReleases() {
-        System.out.println("---NEW RELEASES---");
-        System.out.println("Mountains [Sia, Diplo, Labrinth]");
-        System.out.println("Runaway [Lil Peep]");
-        System.out.println("The Greatest Show [Panic! At The Disco]");
-        System.out.println("All Out Life [Slipknot]");
-    }
-
-    private static void handleFeatured() {
-        System.out.println("---FEATURED---");
-        System.out.println("Mellow Morning");
-        System.out.println("Wake Up and Smell the Coffee");
-        System.out.println("Monday Motivation");
-        System.out.println("Songs to Sing in the Shower");
-    }
-
-    private static void handleCategories() {
-        System.out.println("---CATEGORIES---");
-        System.out.println("Top Lists");
-        System.out.println("Pop");
-        System.out.println("Mood");
-        System.out.println("Latin");
-    }
-
-    private static void handlePlaylists(String playlistType) {
-        System.out.printf("---%s PLAYLISTS---\n", playlistType.toUpperCase(Locale.ROOT));
-        System.out.println("Walk Like A Badass");
-        System.out.println("Rage Beats");
-        System.out.println("Arab Mood Booster");
-        System.out.println("Sunday Stroll");
     }
 
 }

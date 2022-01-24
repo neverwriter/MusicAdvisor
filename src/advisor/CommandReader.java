@@ -11,7 +11,7 @@ public class CommandReader {
 
     /**
      *
-      * @return String which is representation of command input by user.
+      * @return In case of String which is representation of command input by user.
      */
     public static String[] readCommand() {
         Scanner scanner = new Scanner(System.in);
