@@ -5,7 +5,8 @@ public enum Command {
     NEW("NEW"),
     FEATURED("FEATURED"),
     CATEGORIES("CATEGORIES"),
-    PLAYLISTS("PLAYLISTS");
+    PLAYLISTS("PLAYLISTS"),
+    AUTH("AUTH");
 
 
     private String command;
@@ -17,4 +18,5 @@ public enum Command {
     public String getCommand() {
         return command;
     }
+
 }

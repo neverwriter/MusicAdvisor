@@ -10,4 +10,6 @@ public interface Task {
 
     void handlePlaylists(String playlistName);
 
+    void authenticate();
+
 }

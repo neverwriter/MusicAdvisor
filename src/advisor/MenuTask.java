@@ -39,4 +39,10 @@ public class MenuTask implements Task {
         System.out.println("Arab Mood Booster");
         System.out.println("Sunday Stroll");
     }
+
+    @Override
+    public void authenticate() {
+        System.out.println("https://accounts.spotify.com/authorize?client_id=9955b8ae7d0942328db1966b8ccd0272&redirect_uri=http://localhost:8080&response_type=code");
+        System.out.println("---SUCCESS---");
+    }
 }
