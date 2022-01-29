@@ -1,5 +1,6 @@
 package advisor;
 
+import java.io.IOException;
 import java.util.Locale;
 
 public class Menu {
@@ -50,7 +51,7 @@ public class Menu {
             command = Command.valueOf(commands[0].toUpperCase(Locale.ROOT));
         }
 
-        } catch (IllegalArgumentException exception) {
+        } catch (IllegalArgumentException | IOException | InterruptedException exception) {
             System.out.println("Unknown command");
         }
 

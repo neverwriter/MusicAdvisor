@@ -1,5 +1,6 @@
 package advisor;
 
+import java.io.IOException;
 import java.util.Locale;
 
 public class MenuTask implements Task {
@@ -41,8 +42,17 @@ public class MenuTask implements Task {
     }
 
     @Override
-    public void authenticate() {
-        System.out.println("https://accounts.spotify.com/authorize?client_id=9955b8ae7d0942328db1966b8ccd0272&redirect_uri=http://localhost:8080&response_type=code");
+    public void authenticate() throws IOException, InterruptedException {
+
+        String link = "https://accounts.spotify.com/authorize?client_id=9955b8ae7d0942328db1966b8ccd0272&redirect_uri=http://localhost:8080&response_type=code";
+
+        Server.runServer();
+
+        Server.sendRequest(link);
+        System.out.println(link);
+
+        Thread.sleep(2000);
+
         System.out.println("---SUCCESS---");
     }
 }

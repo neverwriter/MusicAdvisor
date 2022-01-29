@@ -1,5 +1,7 @@
 package advisor;
 
+import java.io.IOException;
+
 public class TaskDecorator implements Task {
     private Task task;
 
@@ -28,7 +30,7 @@ public class TaskDecorator implements Task {
     }
 
     @Override
-    public void authenticate() {
+    public void authenticate() throws IOException, InterruptedException {
         task.authenticate();
     }
 }

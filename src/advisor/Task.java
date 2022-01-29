@@ -1,5 +1,7 @@
 package advisor;
 
+import java.io.IOException;
+
 public interface Task {
 
     void handleNewReleases();
@@ -10,6 +12,6 @@ public interface Task {
 
     void handlePlaylists(String playlistName);
 
-    void authenticate();
+    void authenticate() throws IOException, InterruptedException;
 
 }
