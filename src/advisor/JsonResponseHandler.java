@@ -1,6 +1,7 @@
 package advisor;
 
 import advisor.categories.Category;
+import advisor.newrelease.NewRelease;
 import advisor.playlists.Playlist;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -17,6 +18,8 @@ public class JsonResponseHandler {
     private final ArrayList<Playlist> playlists = new ArrayList<>();
 
     private final ArrayList<Category> categories = new ArrayList<>();
+
+    private final ArrayList<NewRelease> newReleases = new ArrayList<>();
 
     public JsonResponseHandler() {
     }
@@ -72,6 +75,35 @@ public class JsonResponseHandler {
         for (Category category: categories
         ) {
             System.out.println(category.getName());
+        }
+
+    }
+
+    public void getNewReleasesFromResponseString(String responseFromSpotify) {
+
+        JsonElement jsonElement = JsonParser.parseString(responseFromSpotify);
+
+        JsonObject jsonObject = jsonElement.getAsJsonObject();
+
+        JsonArray jsonArray = jsonObject.get("albums").getAsJsonObject().get("items").getAsJsonArray();
+
+        ObjectMapper objectMapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+        jsonArray.forEach(jsonElement1 -> {
+            try {
+                NewRelease newRelease = objectMapper.readValue(jsonElement1.getAsJsonObject().toString(), NewRelease.class);
+                newReleases.add(newRelease);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+
+        });
+
+        for (NewRelease newRelease: newReleases
+        ) {
+            System.out.println(newRelease.getName());
+            System.out.println("["+newRelease.getArtists().get(0).get("name").toString()+"]");
+            System.out.println(newRelease.getExternal_urls().get("spotify").toString()+"\n");
         }
 
     }

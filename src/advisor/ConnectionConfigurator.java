@@ -49,4 +49,8 @@ public class ConnectionConfigurator {
     public static String getCategoriesPath() {
         return CATEGORIES_PATH;
     }
+
+    public static String getNewReleasesPath() {
+        return NEW_RELEASES_PATH;
+    }
 }

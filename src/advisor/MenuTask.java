@@ -8,10 +8,17 @@ public class MenuTask implements Task {
     @Override
     public void handleNewReleases() {
         System.out.println("---NEW RELEASES---");
-        System.out.println("Mountains [Sia, Diplo, Labrinth]");
-        System.out.println("Runaway [Lil Peep]");
-        System.out.println("The Greatest Show [Panic! At The Disco]");
-        System.out.println("All Out Life [Slipknot]");
+        JsonResponseHandler jsonResponseHandler = new JsonResponseHandler();
+        try {
+            jsonResponseHandler.getNewReleasesFromResponseString(
+                    Server.getInfoFromSpotifyApi(
+                            ConnectionConfigurator.getApiServerPointUrl()
+                                    + ConnectionConfigurator.getNewReleasesPath()));
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     @Override
@@ -24,7 +31,7 @@ public class MenuTask implements Task {
                     .getFeaturedPlaylistFromResponseString(
                             Server.getInfoFromSpotifyApi(
                                     ConnectionConfigurator.getApiServerPointUrl()
-                                    +ConnectionConfigurator.getFeaturedPath()));
+                                            + ConnectionConfigurator.getFeaturedPath()));
 
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
@@ -37,7 +44,7 @@ public class MenuTask implements Task {
         JsonResponseHandler jsonResponseHandler = new JsonResponseHandler();
         jsonResponseHandler.getCategoriesFromResponseString(Server.getInfoFromSpotifyApi(
                 ConnectionConfigurator.getApiServerPointUrl()
-                        +ConnectionConfigurator.getCategoriesPath()));
+                        + ConnectionConfigurator.getCategoriesPath()));
     }
 
     @Override
