@@ -8,7 +8,7 @@ public interface Task {
 
     void handleFeatured();
 
-    void handleCategories();
+    void handleCategories() throws IOException, InterruptedException;
 
     void handlePlaylists(String playlistName);
 

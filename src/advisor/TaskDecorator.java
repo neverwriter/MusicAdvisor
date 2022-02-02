@@ -20,7 +20,7 @@ public class TaskDecorator implements Task {
     }
 
     @Override
-    public void handleCategories() {
+    public void handleCategories() throws IOException, InterruptedException {
         task.handleCategories();
     }
 

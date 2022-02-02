@@ -131,11 +131,11 @@ public class Server {
         return strings[3];
     }
 
-    static String getFeaturedPlaylistInfo() throws IOException, InterruptedException {
+    static String getInfoFromSpotifyApi(String uri) throws IOException, InterruptedException {
         HttpClient client = HttpClient.newBuilder().build();
 
         HttpRequest request = HttpRequest.newBuilder().header("Content-Type", "application/x-www-form-urlencoded")
-                .uri(URI.create(ConnectionConfigurator.getApiServerPointUrl()+ConnectionConfigurator.getFeaturedPath()))
+                .uri(URI.create(uri))
                 .header("Authorization", "Bearer " + accessToken)
                 .GET()
                 .build();

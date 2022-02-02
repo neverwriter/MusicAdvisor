@@ -20,22 +20,24 @@ public class MenuTask implements Task {
         try {
             JsonResponseHandler jsonResponseHandler = new JsonResponseHandler();
 
-            jsonResponseHandler.getFeaturedPlaylistFromResponseString(Server.getFeaturedPlaylistInfo());
+            jsonResponseHandler
+                    .getFeaturedPlaylistFromResponseString(
+                            Server.getInfoFromSpotifyApi(
+                                    ConnectionConfigurator.getApiServerPointUrl()
+                                    +ConnectionConfigurator.getFeaturedPath()));
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void handleCategories() {
+    public void handleCategories() throws IOException, InterruptedException {
         System.out.println("---CATEGORIES---");
-        System.out.println("Top Lists");
-        System.out.println("Pop");
-        System.out.println("Mood");
-        System.out.println("Latin");
+        JsonResponseHandler jsonResponseHandler = new JsonResponseHandler();
+        jsonResponseHandler.getCategoriesFromResponseString(Server.getInfoFromSpotifyApi(
+                ConnectionConfigurator.getApiServerPointUrl()
+                        +ConnectionConfigurator.getCategoriesPath()));
     }
 
     @Override

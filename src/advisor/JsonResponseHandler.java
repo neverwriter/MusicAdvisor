@@ -1,5 +1,6 @@
 package advisor;
 
+import advisor.categories.Category;
 import advisor.playlists.Playlist;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -13,7 +14,9 @@ import java.util.ArrayList;
 
 public class JsonResponseHandler {
 
-    private ArrayList<Playlist> playlists = new ArrayList<>();
+    private final ArrayList<Playlist> playlists = new ArrayList<>();
+
+    private final ArrayList<Category> categories = new ArrayList<>();
 
     public JsonResponseHandler() {
     }
@@ -42,6 +45,33 @@ public class JsonResponseHandler {
              ) {
             System.out.println(playlist.getName());
             System.out.println(playlist.getExternal_urls().get("spotify")+"\n");
+        }
+
+    }
+
+    public void getCategoriesFromResponseString(String responseFromSpotify) {
+
+        JsonElement jsonElement = JsonParser.parseString(responseFromSpotify);
+
+        JsonObject jsonObject = jsonElement.getAsJsonObject();
+
+        JsonArray jsonArray = jsonObject.get("categories").getAsJsonObject().get("items").getAsJsonArray();
+
+        ObjectMapper objectMapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+        jsonArray.forEach(jsonElement1 -> {
+            try {
+                Category category = objectMapper.readValue(jsonElement1.getAsJsonObject().toString(), Category.class);
+                categories.add(category);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+
+        });
+
+        for (Category category: categories
+        ) {
+            System.out.println(category.getName());
         }
 
     }

@@ -46,4 +46,7 @@ public class ConnectionConfigurator {
         return FEATURED_PATH;
     }
 
+    public static String getCategoriesPath() {
+        return CATEGORIES_PATH;
+    }
 }
