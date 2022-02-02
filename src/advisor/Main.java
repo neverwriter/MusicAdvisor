@@ -12,6 +12,8 @@ public class Main {
 
     private final static String DEFAULT_ACCESS_SERVER_POINT_URL = "https://accounts.spotify.com";
 
+    private final static String DEFAULT_API_SERVER_POINT_URL = "https://api.spotify.com";
+
     public static void main(String[] args) {
 
         argumentsHandling(args);
@@ -31,9 +33,14 @@ public class Main {
                     ConnectionConfigurator.setAccessServerPointUrl(args[i + 1]);
                 }
 
+                if (args[i].equals("-resource")) {
+                    ConnectionConfigurator.setApiServerPointUrl(args[i + 1]);
+                }
+
             }
         } else {
             ConnectionConfigurator.setAccessServerPointUrl(DEFAULT_ACCESS_SERVER_POINT_URL);
+            ConnectionConfigurator.setApiServerPointUrl(DEFAULT_API_SERVER_POINT_URL);
         }
 
     }

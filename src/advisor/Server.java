@@ -16,6 +16,8 @@ import java.util.Base64;
 public class Server {
     private static String code = "";
 
+    private static String accessToken;
+
     public static void runServer() throws IOException, InterruptedException {
         HttpServer server = HttpServer.create();
 
@@ -78,7 +80,7 @@ public class Server {
 
         server.stop(0);
 
-        getAccessToken(code);
+        accessToken = extractAccessToken(getAccessToken(code));
 
     }
 
@@ -103,7 +105,7 @@ public class Server {
      * @throws InterruptedException
      */
 
-    private static void getAccessToken(String code) throws IOException, InterruptedException {
+    private static String getAccessToken(String code) throws IOException, InterruptedException {
         HttpClient client = HttpClient.newBuilder().build();
 
         String originalInput = ConnectionConfigurator.getClientId() + ":" + ConnectionConfigurator.getClientSecret();
@@ -116,10 +118,31 @@ public class Server {
                 .build();
 
         System.out.println("making http request for access_token...");
-        System.out.println("response:");
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        System.out.println(response.body());
+        System.out.println("Success!");
 
+        return response.body();
+
+    }
+
+    private static String extractAccessToken(String responseFromSpotify){
+        String[] strings = responseFromSpotify.split("\"");
+
+        return strings[3];
+    }
+
+    static String getFeaturedPlaylistInfo() throws IOException, InterruptedException {
+        HttpClient client = HttpClient.newBuilder().build();
+
+        HttpRequest request = HttpRequest.newBuilder().header("Content-Type", "application/x-www-form-urlencoded")
+                .uri(URI.create(ConnectionConfigurator.getApiServerPointUrl()+ConnectionConfigurator.getFeaturedPath()))
+                .header("Authorization", "Bearer " + accessToken)
+                .GET()
+                .build();
+
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        return response.body();
     }
 
 

@@ -17,10 +17,16 @@ public class MenuTask implements Task {
     @Override
     public void handleFeatured() {
         System.out.println("---FEATURED---");
-        System.out.println("Mellow Morning");
-        System.out.println("Wake Up and Smell the Coffee");
-        System.out.println("Monday Motivation");
-        System.out.println("Songs to Sing in the Shower");
+        try {
+            JsonResponseHandler jsonResponseHandler = new JsonResponseHandler();
+
+            jsonResponseHandler.getFeaturedPlaylistFromResponseString(Server.getFeaturedPlaylistInfo());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
