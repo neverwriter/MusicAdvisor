@@ -12,7 +12,7 @@ public class ConnectionConfigurator {
 
     private final static String CATEGORIES_PATH = "/v1/browse/categories";
 
-    private final static String PLAYLIST_PATH = "/v1/browse/categories/{category_id}/playlists";
+    private final static String PLAYLIST_PATH = "/v1/browse/categories//playlists";
 
     private final static String NEW_RELEASES_PATH = "/v1/browse/new-releases";
 
@@ -52,5 +52,9 @@ public class ConnectionConfigurator {
 
     public static String getNewReleasesPath() {
         return NEW_RELEASES_PATH;
+    }
+
+    public static String getPlaylistPath() {
+        return PLAYLIST_PATH;
     }
 }
