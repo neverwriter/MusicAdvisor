@@ -26,6 +26,7 @@ public class Server {
         server.createContext("/",
                 new HttpHandler() {
                     boolean got = false;
+
                     public void handle(HttpExchange exchange) throws IOException {
 
                         String notFound = "Authorization code not found. Try again.";
@@ -34,18 +35,18 @@ public class Server {
 
                         String query = exchange.getRequestURI().getQuery();
 
-                        if(query == null) query = "";
+                        if (query == null) query = "";
                         String response;
 
-                        if (query.contains("code")){
+                        if (query.contains("code")) {
                             got = true;
                             code = query.substring(5);
 
                         }
 
-                        if (got){
+                        if (got) {
                             response = succeed;
-                        } else{
+                        } else {
                             response = notFound;
                         }
 
@@ -72,7 +73,7 @@ public class Server {
 
         System.out.println("waiting for code...");
 
-        while(code.equals("")){
+        while (code.equals("")) {
             Thread.sleep(100);
         }
 
@@ -125,7 +126,7 @@ public class Server {
 
     }
 
-    private static String extractAccessToken(String responseFromSpotify){
+    private static String extractAccessToken(String responseFromSpotify) {
         String[] strings = responseFromSpotify.split("\"");
 
         return strings[3];
@@ -142,8 +143,17 @@ public class Server {
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        return response.body();
-    }
+        if (response.body().contains("error")) {
 
+            JsonResponseHandler jsonResponseHandler = new JsonResponseHandler();
+
+            Error error = jsonResponseHandler.handleErrorMassage(response.body());
+
+            System.out.println(error.getMessage());
+
+            return "error";
+
+        } else return response.body();
+    }
 
 }

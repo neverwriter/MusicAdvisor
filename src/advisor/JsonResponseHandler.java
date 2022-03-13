@@ -136,32 +136,34 @@ public class JsonResponseHandler {
 
     public void getPlaylistFromResponseString(String responseFromSpotify) throws JsonProcessingException {
 
-        JsonElement jsonElement = JsonParser.parseString(responseFromSpotify);
+        if (!responseFromSpotify.equals("error")) {
 
-        JsonObject jsonObject = jsonElement.getAsJsonObject();
+            JsonElement jsonElement = JsonParser.parseString(responseFromSpotify);
 
-        JsonArray jsonArray = jsonObject.get("playlists").getAsJsonObject().get("items").getAsJsonArray();
+            JsonObject jsonObject = jsonElement.getAsJsonObject();
 
-        ObjectMapper objectMapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+            JsonArray jsonArray = jsonObject.get("playlists").getAsJsonObject().get("items").getAsJsonArray();
 
-        playlists.clear();
+            ObjectMapper objectMapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-        jsonArray.forEach(jsonElement1 -> {
-            try {
-                Playlist playlist = objectMapper.readValue(jsonElement1.getAsJsonObject().toString(), Playlist.class);
-                playlists.add(playlist);
-            } catch (JsonProcessingException e) {
-                e.printStackTrace();
+            playlists.clear();
+
+            jsonArray.forEach(jsonElement1 -> {
+                try {
+                    Playlist playlist = objectMapper.readValue(jsonElement1.getAsJsonObject().toString(), Playlist.class);
+                    playlists.add(playlist);
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
+
+            });
+
+            for (Playlist playlist : playlists
+            ) {
+                System.out.println(playlist.getName());
+                System.out.println(playlist.getExternal_urls().get("spotify") + "\n");
             }
-
-        });
-
-        for (Playlist playlist : playlists
-        ) {
-            System.out.println(playlist.getName());
-            System.out.println(playlist.getExternal_urls().get("spotify") + "\n");
         }
-
     }
 
     public ArrayList<Category> getCategories() {
@@ -180,6 +182,27 @@ public class JsonResponseHandler {
         }
 
         return Objects.requireNonNullElse(categoryId, "Unknown category name.");
+
+    }
+
+    public Error handleErrorMassage(String responseFromSpotify) {
+
+        JsonObject jsonObject = JsonParser.parseString(responseFromSpotify).getAsJsonObject();
+
+        JsonObject errorObject = jsonObject.getAsJsonObject("error");
+
+
+        ObjectMapper objectMapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+        Error error = null;
+
+        try {
+            error = objectMapper.readValue(errorObject.toString(), Error.class);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return error;
 
     }
 
