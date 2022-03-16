@@ -12,11 +12,11 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 public class JsonResponseHandler {
+
+    private static JsonResponseHandler instance;
 
     private final ArrayList<Playlist> featuredPlaylists = new ArrayList<>();
 
@@ -26,7 +26,14 @@ public class JsonResponseHandler {
 
     private final ArrayList<NewRelease> newReleases = new ArrayList<>();
 
-    public JsonResponseHandler() {
+    private JsonResponseHandler() {
+    }
+
+    public static JsonResponseHandler getInstance() {
+        if (instance == null) {
+            instance = new JsonResponseHandler();
+        }
+        return instance;
     }
 
     public void getFeaturedPlaylistFromResponseString(String responseFromSpotify) throws JsonProcessingException {
@@ -113,24 +120,7 @@ public class JsonResponseHandler {
 
         });
 
-        for (NewRelease newRelease : newReleases
-        ) {
-            System.out.println(newRelease.getName());
-            System.out.print("[");
 
-            List<Map<String, Object>> artists = newRelease.getArtists();
-
-            System.out.print(artists.get(0).get("name").toString());
-
-            if (artists.size() > 1) {
-
-                for (int i = 1; i < artists.size(); i++) {
-                    System.out.print(", " + artists.get(i).get("name").toString());
-                }
-            }
-            System.out.print("]\n");
-            System.out.println(newRelease.getExternal_urls().get("spotify").toString() + "\n");
-        }
 
     }
 
@@ -206,4 +196,15 @@ public class JsonResponseHandler {
 
     }
 
+    public ArrayList<Playlist> getFeaturedPlaylists() {
+        return featuredPlaylists;
+    }
+
+    public ArrayList<Playlist> getPlaylists() {
+        return playlists;
+    }
+
+    public ArrayList<NewRelease> getNewReleases() {
+        return newReleases;
+    }
 }

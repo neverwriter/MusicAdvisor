@@ -145,7 +145,7 @@ public class Server {
 
         if (response.body().contains("error")) {
 
-            JsonResponseHandler jsonResponseHandler = new JsonResponseHandler();
+            JsonResponseHandler jsonResponseHandler = JsonResponseHandler.getInstance();
 
             Error error = jsonResponseHandler.handleErrorMassage(response.body());
 

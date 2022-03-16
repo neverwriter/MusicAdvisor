@@ -1,15 +1,20 @@
 package advisor;
 
+import advisor.printstrategy.PrintDataContext;
+import advisor.printstrategy.PrintDataNewReleaseStrategy;
+
 import java.io.IOException;
-import java.util.Locale;
 
 public class MenuTask implements Task {
 
-    private JsonResponseHandler jsonResponseHandler = new JsonResponseHandler();
+    private final JsonResponseHandler jsonResponseHandler = JsonResponseHandler.getInstance();
+
+    private final PrintDataContext printDataContext = new PrintDataContext();
 
     @Override
     public void handleNewReleases() {
-//        System.out.println("---NEW RELEASES---");
+
+        printDataContext.setStrategy(new PrintDataNewReleaseStrategy());
 
         try {
             jsonResponseHandler.getNewReleasesFromResponseString(
@@ -19,13 +24,15 @@ public class MenuTask implements Task {
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
+
+        printDataContext.executeStrategy();
+
     }
 
     @Override
     public void handleFeatured() {
-//        System.out.println("---FEATURED---");
-        try {
 
+        try {
             jsonResponseHandler
                     .getFeaturedPlaylistFromResponseString(
                             Server.getInfoFromSpotifyApi(
@@ -39,7 +46,6 @@ public class MenuTask implements Task {
 
     @Override
     public void handleCategories() throws IOException, InterruptedException {
-//        System.out.println("---CATEGORIES---");
 
         jsonResponseHandler.getCategoriesFromResponseString(Server.getInfoFromSpotifyApi(
                 ConnectionConfigurator.getApiServerPointUrl()
@@ -47,10 +53,9 @@ public class MenuTask implements Task {
     }
 
     @Override
-    public void handlePlaylists(String categoryName){
-//        System.out.printf("---%s PLAYLISTS---\n", categoryName.toUpperCase(Locale.ROOT));
+    public void handlePlaylists(String categoryName) {
 
-        if (jsonResponseHandler.getCategories().isEmpty()){
+        if (jsonResponseHandler.getCategories().isEmpty()) {
 
             try {
                 jsonResponseHandler.getCategoriesFromResponseString(Server.getInfoFromSpotifyApi(
@@ -64,7 +69,7 @@ public class MenuTask implements Task {
 
         String categoryId = jsonResponseHandler.getCategoryIdByName(categoryName);
 
-        if(categoryId.equals("Unknown category name.")){
+        if (categoryId.equals("Unknown category name.")) {
             System.out.println(categoryId);
         } else {
 
