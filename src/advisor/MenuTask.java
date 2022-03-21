@@ -46,7 +46,7 @@ public class MenuTask implements Task {
 
         jsonResponseHandler.getCategoriesFromResponseString(Server.getInfoFromSpotifyApi(
                 ConnectionConfigurator.getApiServerPointUrl()
-                        + ConnectionConfigurator.getCategoriesPath()), true);
+                        + ConnectionConfigurator.getCategoriesPath()));
     }
 
     @Override
@@ -57,7 +57,7 @@ public class MenuTask implements Task {
             try {
                 jsonResponseHandler.getCategoriesFromResponseString(Server.getInfoFromSpotifyApi(
                         ConnectionConfigurator.getApiServerPointUrl()
-                                + ConnectionConfigurator.getCategoriesPath()), false);
+                                + ConnectionConfigurator.getCategoriesPath()));
             } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }

@@ -58,15 +58,9 @@ public class JsonResponseHandler {
 
         });
 
-        for (Playlist playlist : featuredPlaylists
-        ) {
-            System.out.println(playlist.getName());
-            System.out.println(playlist.getExternal_urls().get("spotify") + "\n");
-        }
-
     }
 
-    public void getCategoriesFromResponseString(String responseFromSpotify, boolean isPrintNeeded) {
+    public void getCategoriesFromResponseString(String responseFromSpotify) {
 
         JsonElement jsonElement = JsonParser.parseString(responseFromSpotify);
 
@@ -88,14 +82,7 @@ public class JsonResponseHandler {
 
         });
 
-        if (isPrintNeeded) {
 
-            for (Category category : categories
-            ) {
-                System.out.println(category.getName());
-            }
-            System.out.print("\n");
-        }
     }
 
     public void getNewReleasesFromResponseString(String responseFromSpotify) {
@@ -148,11 +135,7 @@ public class JsonResponseHandler {
 
             });
 
-            for (Playlist playlist : playlists
-            ) {
-                System.out.println(playlist.getName());
-                System.out.println(playlist.getExternal_urls().get("spotify") + "\n");
-            }
+
         }
     }
 

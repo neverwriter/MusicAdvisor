@@ -1,7 +1,6 @@
 package advisor;
 
-import advisor.printstrategy.PrintDataContext;
-import advisor.printstrategy.PrintDataNewReleaseStrategy;
+import advisor.printstrategy.*;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -19,6 +18,7 @@ public class Menu {
     public static void menu() {
 
         Authentication authentication = new Authentication(false);
+
         try {
         String[] commands = CommandReader.readCommand();
 
@@ -40,14 +40,26 @@ public class Menu {
 
                     case FEATURED:
                         task.handleFeatured();
+
+                        printDataContext.setStrategy(new PrintDataFeaturedPlaylistStrategy());
+
+                        printDataContext.executeStrategy(NEUTRAL_PAGE_MODIFICATOR);
                         break;
 
                     case CATEGORIES:
                         task.handleCategories();
+
+                        printDataContext.setStrategy(new PrintDataCategoryStrategy());
+
+                        printDataContext.executeStrategy(NEUTRAL_PAGE_MODIFICATOR);
                         break;
 
                     case PLAYLISTS:
                         task.handlePlaylists(commands[1]);
+
+                        printDataContext.setStrategy(new PrintDataPlaylistStrategy());
+
+                        printDataContext.executeStrategy(NEUTRAL_PAGE_MODIFICATOR);
                         break;
 
                     case AUTH:

@@ -22,7 +22,7 @@ public class Main {
 
         Menu.menu();
 
-        TextPrinter.printGoodbye();
+//        TextPrinter.printGoodbye();
 
     }
 
