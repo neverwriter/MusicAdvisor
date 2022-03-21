@@ -8,7 +8,7 @@ public class PrintDataContext {
         this.printDataStrategy = printDataStrategy;
     }
 
-    public void executeStrategy() {
-        printDataStrategy.execute();
+    public void executeStrategy(int pageModificator) {
+        printDataStrategy.execute(pageModificator);
     }
 }

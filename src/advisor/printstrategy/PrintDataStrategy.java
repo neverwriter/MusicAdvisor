@@ -2,5 +2,5 @@ package advisor.printstrategy;
 
 public interface PrintDataStrategy {
 
-    public void execute();
+    public void execute(int pageModificator);
 }

@@ -1,8 +1,8 @@
 package advisor;
 
-import advisor.categories.Category;
-import advisor.newrelease.NewRelease;
-import advisor.playlists.Playlist;
+import advisor.content.categories.Category;
+import advisor.content.newrelease.NewRelease;
+import advisor.content.playlists.Playlist;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;

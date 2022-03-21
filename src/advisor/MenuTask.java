@@ -1,20 +1,17 @@
 package advisor;
 
-import advisor.printstrategy.PrintDataContext;
-import advisor.printstrategy.PrintDataNewReleaseStrategy;
-
 import java.io.IOException;
 
 public class MenuTask implements Task {
 
     private final JsonResponseHandler jsonResponseHandler = JsonResponseHandler.getInstance();
 
-    private final PrintDataContext printDataContext = new PrintDataContext();
+
 
     @Override
     public void handleNewReleases() {
 
-        printDataContext.setStrategy(new PrintDataNewReleaseStrategy());
+
 
         try {
             jsonResponseHandler.getNewReleasesFromResponseString(
@@ -25,7 +22,7 @@ public class MenuTask implements Task {
             e.printStackTrace();
         }
 
-        printDataContext.executeStrategy();
+
 
     }
 

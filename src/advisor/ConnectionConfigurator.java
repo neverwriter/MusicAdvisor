@@ -6,6 +6,8 @@ public class ConnectionConfigurator {
 
     private static String apiServerPointUrl;
 
+    private static int numberOfItemOnPage;
+
     private final static String CLIENT_ID = "9955b8ae7d0942328db1966b8ccd0272";
 
     private final static String CLIENT_SECRET = "936a41d043484f53a7292ef86116f428";
@@ -24,6 +26,14 @@ public class ConnectionConfigurator {
 
     public static void setAccessServerPointUrl(String accessServerPointUrl) {
         ConnectionConfigurator.accessServerPointUrl = accessServerPointUrl;
+    }
+
+    public static int getNumberOfItemOnPage() {
+        return numberOfItemOnPage;
+    }
+
+    public static void setNumberOfItemOnPage(int numberOfItemOnPage) {
+        ConnectionConfigurator.numberOfItemOnPage = numberOfItemOnPage;
     }
 
     public static String getClientId() {

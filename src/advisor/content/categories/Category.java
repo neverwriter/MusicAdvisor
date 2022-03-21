@@ -1,4 +1,4 @@
-package advisor.categories;
+package advisor.content.categories;
 
 public class Category {
 

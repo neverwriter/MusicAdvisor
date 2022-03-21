@@ -11,4 +11,12 @@ public class TextPrinter {
     public static void printSuccess(){
         System.out.println(SUCCESS);
     }
+
+    public static void printPageNumber(int currentPageNumber, int maxPageNumber){
+        System.out.printf("---PAGE %d OF %d---\n", currentPageNumber, maxPageNumber);
+    }
+
+    public static void printNoMorePages(){
+        System.out.println("No more pages.");
+    }
 }

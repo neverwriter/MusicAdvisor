@@ -14,6 +14,8 @@ public class Main {
 
     private final static String DEFAULT_API_SERVER_POINT_URL = "https://api.spotify.com";
 
+    private final static int DEFAULT_NUMBER_OF_ITEM_ON_PAGE = 5;
+
     public static void main(String[] args) {
 
         argumentsHandling(args);
@@ -37,10 +39,15 @@ public class Main {
                     ConnectionConfigurator.setApiServerPointUrl(args[i + 1]);
                 }
 
+                if (args[i].equals("-page")) {
+                    ConnectionConfigurator.setNumberOfItemOnPage(Integer.parseInt(args[i + 1]));
+                }
+
             }
         } else {
             ConnectionConfigurator.setAccessServerPointUrl(DEFAULT_ACCESS_SERVER_POINT_URL);
             ConnectionConfigurator.setApiServerPointUrl(DEFAULT_API_SERVER_POINT_URL);
+            ConnectionConfigurator.setNumberOfItemOnPage(DEFAULT_NUMBER_OF_ITEM_ON_PAGE);
         }
 
     }

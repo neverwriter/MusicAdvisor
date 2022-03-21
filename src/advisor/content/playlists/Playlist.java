@@ -1,4 +1,4 @@
-package advisor.playlists;
+package advisor.content.playlists;
 
 import java.util.Map;
 

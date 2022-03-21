@@ -6,7 +6,9 @@ public enum Command {
     FEATURED("FEATURED"),
     CATEGORIES("CATEGORIES"),
     PLAYLISTS("PLAYLISTS"),
-    AUTH("AUTH");
+    AUTH("AUTH"),
+    PREV("PREV"),
+    NEXT("NEXT");
 
 
     private String command;

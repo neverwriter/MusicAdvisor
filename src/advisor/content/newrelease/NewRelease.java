@@ -1,4 +1,4 @@
-package advisor.newrelease;
+package advisor.content.newrelease;
 
 import java.util.List;
 import java.util.Map;

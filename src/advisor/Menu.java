@@ -1,9 +1,20 @@
 package advisor;
 
+import advisor.printstrategy.PrintDataContext;
+import advisor.printstrategy.PrintDataNewReleaseStrategy;
+
 import java.io.IOException;
 import java.util.Locale;
 
 public class Menu {
+
+    private static final PrintDataContext printDataContext = new PrintDataContext();
+
+    private static final int PREV_PAGE_MODIFICATOR = -1;
+
+    private static final int NEUTRAL_PAGE_MODIFICATOR = 0;
+
+    private static final int NEXT_PAGE_MODIFICATOR = 1;
 
     public static void menu() {
 
@@ -21,6 +32,10 @@ public class Menu {
                     case NEW:
 
                         task.handleNewReleases();
+
+                        printDataContext.setStrategy(new PrintDataNewReleaseStrategy());
+
+                        printDataContext.executeStrategy(NEUTRAL_PAGE_MODIFICATOR);
                         break;
 
                     case FEATURED:
@@ -38,6 +53,14 @@ public class Menu {
                     case AUTH:
                         task = new MenuTask();
                         task.authenticate();
+                        break;
+
+                    case NEXT:
+                        printDataContext.executeStrategy(NEXT_PAGE_MODIFICATOR);
+                        break;
+
+                    case PREV:
+                        printDataContext.executeStrategy(PREV_PAGE_MODIFICATOR);
                         break;
 
                     default:
